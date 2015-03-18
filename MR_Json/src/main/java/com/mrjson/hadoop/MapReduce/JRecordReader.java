@@ -14,7 +14,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 import java.io.IOException;
 
 
-public class SDFRecordReader extends RecordReader<LongWritable, Text> {
+public class JRecordReader extends RecordReader<LongWritable, Text> {
     private long end;
     private boolean stillInChunk = true;
 
@@ -24,7 +24,7 @@ public class SDFRecordReader extends RecordReader<LongWritable, Text> {
     private FSDataInputStream fsin;
     private DataOutputBuffer buffer = new DataOutputBuffer();
 
-    // private byte[] endTag = "$$$$\n".getBytes();
+    // coopted from sdfrecordreader private byte[] endTag = "$$$$\n".getBytes();
     private byte[] endTag = "}\n".getBytes();
 
     public void initialize(InputSplit inputSplit, TaskAttemptContext taskAttemptContext) throws IOException, InterruptedException {
