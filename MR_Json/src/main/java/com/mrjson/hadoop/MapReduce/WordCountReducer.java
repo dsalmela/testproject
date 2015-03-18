@@ -11,10 +11,11 @@ public class WordCountReducer extends
  
     public void reduce(Text text, Iterable<IntWritable> values, Context context)
             throws IOException, InterruptedException {
-        int sum = 0;
-        for (IntWritable value : values) {
-            sum += value.get();
-        }
-        context.write(text, new IntWritable(sum));
+// not using any reducers
+//        int sum = 0;
+//        for (IntWritable value : values) {
+//            sum += value.get();
+//        }
+//        context.write(text, new IntWritable(sum));
     }
 }
