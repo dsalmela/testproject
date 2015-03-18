@@ -18,7 +18,7 @@ public class MRJob {
  
         Path inputPath = new Path(args[0]);
         Path outputDir = new Path(args[1]);
-        System.out.println("Starting.... NOWWW!");
+        System.out.println("Starting....");
         // Create configuration
         Configuration conf = new Configuration(true);
         
@@ -42,15 +42,13 @@ public class MRJob {
         
         // These Three lines change the Input Format
         job.setNumReduceTasks(0);
-      //   job.setInputFormatClass(MultiLineJsonInputFormat.class);
+  
         job.setInputFormatClass(SDFInputFormat.class);
-       //  MultiLineJsonInputFormat.setInputJsonMember(job, "type");
-        
+  
         // Output
         FileOutputFormat.setOutputPath(job, outputDir);
-       //x  job.setOutputFormatClass(TextOutputFormat.class);
-        System.out.println("FINISHING.... NOWWW!");
-        // Delete output if exists. Smart
+       
+        // Delete output if exists, makes troubleshooting easier.
         FileSystem hdfs = FileSystem.get(conf);
         if (hdfs.exists(outputDir))
             hdfs.delete(outputDir, true);
