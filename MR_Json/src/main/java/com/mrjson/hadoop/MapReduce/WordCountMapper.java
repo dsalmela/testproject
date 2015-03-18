@@ -36,11 +36,29 @@ public class WordCountMapper extends
 					out = "error in json input" + e.toString();
 					e.printStackTrace();
 				}
+	            //String out = "";
+	            
 	            // emit the tuple and the original contents of the line
 	            
-
+	           // context.write(new Text(out), null);
 	            context.write(new Text(out), null);
 	       // }
 	    }
-
+    public void map_1(Object key, Text value, Context context)
+            throws IOException, InterruptedException {
+    		
+      //  String[] csv = value.toString().split(",");
+      //  for (String str : csv) {
+       //     word.set(str);
+       //     context.write(word, ONE);
+            // String[] fields = {"date", "type", "id", "user"};
+            String formatted = value.toString().replaceAll("\n", " ");
+            //String out = "";
+            
+            // emit the tuple and the original contents of the line
+            
+           // context.write(new Text(out), null);
+            context.write(new Text(formatted), null);
+       // }
+    }
 }
