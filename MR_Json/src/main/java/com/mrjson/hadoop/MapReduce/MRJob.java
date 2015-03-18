@@ -18,7 +18,7 @@ public class MRJob {
  
         Path inputPath = new Path(args[0]);
         Path outputDir = new Path(args[1]);
-        System.out.println("Starting.... NOWWW!");
+        System.out.println("Starting....");
         // Create configuration
         Configuration conf = new Configuration(true);
         
@@ -28,8 +28,7 @@ public class MRJob {
  
         // Setup MapReduce
         job.setMapperClass(WordCountMapper.class);
-      //  job.setReducerClass(WordCountReducer.class);
-      //  job.setNumReduceTasks(1);
+
  
         // Specify key / value
         job.setOutputKeyClass(Text.class);
@@ -37,20 +36,16 @@ public class MRJob {
  
         // Input
         FileInputFormat.addInputPath(job, inputPath);
-        // job.setInputFormatClass(TextInputFormat.class);
         
-        
-        // These Three lines change the Input Format
+              
+        // Change the Input Format
         job.setNumReduceTasks(0);
-      //   job.setInputFormatClass(MultiLineJsonInputFormat.class);
-        job.setInputFormatClass(SDFInputFormat.class);
-       //  MultiLineJsonInputFormat.setInputJsonMember(job, "type");
-        
+        job.setInputFormatClass(JInputFormat.class);
+
         // Output
         FileOutputFormat.setOutputPath(job, outputDir);
-       //x  job.setOutputFormatClass(TextOutputFormat.class);
-        System.out.println("FINISHING.... NOWWW!");
-        // Delete output if exists. Smart
+
+        // Delete output if exists. Easier for debugging
         FileSystem hdfs = FileSystem.get(conf);
         if (hdfs.exists(outputDir))
             hdfs.delete(outputDir, true);
